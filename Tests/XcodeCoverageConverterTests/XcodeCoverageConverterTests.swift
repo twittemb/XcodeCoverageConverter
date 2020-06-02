@@ -12,7 +12,7 @@ final class XcodeCoverageConverterTests: XCTestCase {
             return
         }
 
-        let fooBinary = productsDirectory.appendingPathComponent("XcodeCoverageConverter")
+        let fooBinary = productsDirectory.appendingPathComponent("xcc")
 
         let process = Process()
         process.executableURL = fooBinary
@@ -26,7 +26,7 @@ final class XcodeCoverageConverterTests: XCTestCase {
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
         let output = String(data: data, encoding: .utf8)
 
-        XCTAssertEqual(output, "Hello, world!\n")
+        XCTAssertEqual(output, "")
     }
 
     /// Returns path to the built products directory.
