@@ -18,43 +18,19 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "XcodeCoverageConverter",
-            dependencies: [.product(name: "ArgumentParser", package: "swift-argument-parser"), "Readers", "Converters", "Filters"],
+            dependencies: [.product(name: "ArgumentParser", package: "swift-argument-parser"), "Core"],
             path: "Sources/XcodeCoverageConverter"),
         .target(
-            name: "Commons",
+            name: "Core",
             dependencies: [],
-            path: "Sources/Commons"),
-        .target(
-            name: "Readers",
-            dependencies: ["Commons"],
-            path: "Sources/Readers"),
-        .target(
-            name: "Converters",
-            dependencies: ["Commons"],
-            path: "Sources/Converters"),
-        .target(
-            name: "Filters",
-            dependencies: ["Commons"],
-            path: "Sources/Filters"),
+            path: "Sources/Core"),
         .testTarget(
             name: "XcodeCoverageConverterTests",
             dependencies: ["XcodeCoverageConverter"],
             path: "Tests/XcodeCoverageConverterTests"),
         .testTarget(
-            name: "CommonsTests",
-            dependencies: ["Commons"],
-            path: "Tests/Commons"),
-        .testTarget(
-            name: "ReadersTests",
-            dependencies: ["Readers"],
-            path: "Tests/ReadersTests"),
-        .testTarget(
-            name: "ConvertersTests",
-            dependencies: ["Converters"],
-            path: "Tests/ConvertersTests"),
-        .testTarget(
-            name: "FiltersTests",
-            dependencies: ["Filters"],
-            path: "Tests/FiltersTests"),
+            name: "CoreTests",
+            dependencies: ["Core"],
+            path: "Tests/CoreTests"),
     ]
 )

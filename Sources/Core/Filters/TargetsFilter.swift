@@ -5,13 +5,11 @@
 //  Created by Thibault Wittemberg on 2020-06-01.
 //
 
-import Commons
-
-public extension Xccov.Filter {
+public extension Xccov.Filters {
     enum Targets {}
 }
 
-public extension Xccov.Filter.Targets {
+public extension Xccov.Filters.Targets {
     static func filter(coverageReport: CoverageReport, targetsToExclude: [String]) -> CoverageReport {
 
         guard !targetsToExclude.isEmpty else { return coverageReport }

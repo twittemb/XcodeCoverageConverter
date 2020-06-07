@@ -5,15 +5,14 @@
 //  Created by Thibault Wittemberg on 2020-05-30.
 //
 
-import Commons
 import Foundation
 
-public extension Xccov.Converter {
+public extension Xccov.Converters {
     enum CoberturaXml {}
 }
 
-public extension Xccov.Converter.CoberturaXml {
-    static func convert(coverageReport: CoverageReport) -> Result<String, Xccov.Converter.Error> {
+public extension Xccov.Converters.CoberturaXml {
+    static func convert(coverageReport: CoverageReport) -> Result<String, Xccov.Error> {
         let currentDirectoryPath = FileManager.default.currentDirectoryPath
 
         let dtd = try! XMLDTD(contentsOf: URL(string: "http://cobertura.sourceforge.net/xml/coverage-04.dtd")!)
@@ -42,33 +41,19 @@ public extension Xccov.Converter.CoberturaXml {
 
         let packagesElement = XMLElement(name: "packages")
         rootElement.addChild(packagesElement)
-
-        var allFiles = [FileCoverageReport]()
-        for targetCoverageReport in coverageReport.targets {
-            // Filter out targets
-//            if targetCoverageReport.name.contains(elementOfArray: targetsToExclude) {
-//                continue
-//            }
-
-            // Filter out files by package
-            let targetFiles = targetCoverageReport.files
-//                .filter { !$0.path.contains(elementOfArray: packagesToExclude) }
-            allFiles.append(contentsOf: targetFiles)
-        }
-
+        
         // Sort files to avoid duplicated packages
-        allFiles = allFiles.sorted(by: { $0.path > $1.path })
+        let allFiles = coverageReport.targets.flatMap { $0.files }.sorted { $0.path > $1.path }
 
         var currentPackage = ""
         var currentPackageElement: XMLElement!
         var isNewPackage = false
 
-        for fileCoverageReport in allFiles {
+        allFiles.forEach { fileCoverageReport in
             // Define file path relative to source!
             let filePath = fileCoverageReport.path.replacingOccurrences(of: currentDirectoryPath + "/", with: "")
             let pathComponents = filePath.split(separator: "/")
             let packageName = pathComponents[0..<pathComponents.count - 1].joined(separator: ".")
-
 
             isNewPackage = currentPackage != packageName
 

@@ -1,8 +1,5 @@
 import ArgumentParser
-import Converters
-import Commons
-import Filters
-import Readers
+import Core
 
 struct Xcc: ParsableCommand {
     static let configuration = CommandConfiguration(
@@ -24,7 +21,7 @@ struct Generate: ParsableCommand {
     private var outputPath: String
 
     @Option(help: "The output formats")
-    private var outputFormats: [Output]
+    private var outputFormats: [Xccov.Commands.Generate.Output]
 
     @Option(help: "The targets to exclude")
     private var excludeTargets: [String]
@@ -36,61 +33,22 @@ struct Generate: ParsableCommand {
     private var verbose: Bool
 
     func run() throws {
-        if verbose {
-            print("Converting \(jsonFile) into a \(outputFormats) file at \(outputPath)")
-        }
+        let result = Xccov.Commands.Generate.execute(jsonFile: jsonFile,
+                                                     outputPath: outputPath,
+                                                     outputs: outputFormats,
+                                                     excludeTargets: excludeTargets,
+                                                     excludePackages: excludePackages,
+                                                     verbose: verbose)
 
-        Xccov.Reader
-            .read(file: jsonFile)
-            .flatMap { Xccov.Reader.Json.decode(content: $0) }
-            .map { Xccov.Filter.Targets.filter(coverageReport: $0, targetsToExclude: excludeTargets) }
-            .map { Xccov.Filter.Packages.filter(coverageReport: $0, packagesToExclude: excludePackages) }
-            .apply(onFailure: { error in
-                print("Failed with error \(error)")
-            }, onSuccess: { report in
-                Self
-                    .convert(report: report, to: outputFormats)
-                    .filter { !$0.output.isEmpty }
-                    .forEach { Self.write(export: $0) }
-            })
-    }
-
-    static func convert(report: CoverageReport, to outputFormats: [Output]) -> [(output: String, filename: String)] {
-        outputFormats
-            .map { (conversion: $0.conversion(report), filename: $0.filename) }
-            .map { args -> (output: String, filename: String) in
-                let conversion = args.conversion
-                let filename = args.filename
-                if case let .success(output) = conversion {
-                    return (output: output, filename: filename)
-                }
-                return (output: "", filename: filename)
+        switch result {
+        case .success(_):
+            throw CleanExit.message("All good")
+        case .failure(_):
+            throw ExitCode.failure
         }
     }
 
-    static func write(export: (output: String, filename: String)) {
-        let output = export.output
-        let filename = export.filename
-        try? output.write(toFile: filename, atomically: true, encoding: .utf8)
-    }
-}
 
-enum Output: String, ExpressibleByArgument {
-    case coberturaXml = "cobertura-xml"
-
-    var conversion: Xccov.Converter.Converter {
-        switch self {
-        case .coberturaXml:
-            return Xccov.Converter.CoberturaXml.convert(coverageReport:)
-        }
-    }
-
-    var filename: String {
-        switch self {
-        case .coberturaXml:
-            return "cobertura.xml"
-        }
-    }
 }
 
 Xcc.main()
