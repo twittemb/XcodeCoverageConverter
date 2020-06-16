@@ -7,7 +7,7 @@
 
 public extension Result {
     @discardableResult
-    func verbose(_ verbose: Bool, onFailure failure: (Failure) -> Void,  onSuccess success: (Success) -> Void) -> Self {
+    func verbose(_ verbose: Bool, onFailure failure: (Failure) -> Void = { _ in },  onSuccess success: (Success) -> Void = { _ in }) -> Self {
         if verbose {
             switch self {
             case .failure(let error):

@@ -20,7 +20,7 @@ struct Generate: ParsableCommand {
     @Argument(help: "The path of the output file")
     private var outputPath: String
 
-    @Option(help: "The output formats")
+    @Argument(help: "The output formats")
     private var outputFormats: [Xccov.Commands.Generate.Output]
 
     @Option(help: "The targets to exclude")
