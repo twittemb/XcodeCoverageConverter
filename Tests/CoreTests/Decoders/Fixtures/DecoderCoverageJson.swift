@@ -1,11 +1,11 @@
 //
-//  Coverage.swift
+//  DecoderCoverageJson.swift
 //  
 //
-//  Created by Thibault Wittemberg on 2020-05-30.
+//  Created by Thibault Wittemberg on 2020-07-04.
 //
 
-let coverage = """
+let decoderFixtureCoverageJson = """
 {
    "coveredLines":1771,
    "lineCoverage":0.77167755991285403,
@@ -17,7 +17,7 @@ let coverage = """
             {
                "coveredLines":7,
                "lineCoverage":0.875,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Sources/Combine/AnyPublisher+ReactiveStream.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Sources/Combine/AnyPublisher+ReactiveStream.swift",
                "functions":[
                   {
                      "coveredLines":3,
@@ -58,7 +58,7 @@ let coverage = """
             {
                "coveredLines":29,
                "lineCoverage":0.87878787878787878,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Sources/Combine/UISpin.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Sources/Combine/UISpin.swift",
                "functions":[
                   {
                      "coveredLines":1,
@@ -147,7 +147,7 @@ let coverage = """
             {
                "coveredLines":3,
                "lineCoverage":1,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Sources/Combine/AnyCancellable+DisposeBag.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Sources/Combine/AnyCancellable+DisposeBag.swift",
                "functions":[
                   {
                      "coveredLines":3,
@@ -164,7 +164,7 @@ let coverage = """
             {
                "coveredLines":21,
                "lineCoverage":1,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Sources/Combine/Reducer.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Sources/Combine/Reducer.swift",
                "functions":[
                   {
                      "coveredLines":4,
@@ -205,7 +205,7 @@ let coverage = """
             {
                "coveredLines":13,
                "lineCoverage":0.56521739130434778,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Sources/Combine/AnyScheduler.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Sources/Combine/AnyScheduler.swift",
                "functions":[
                   {
                      "coveredLines":3,
@@ -286,7 +286,7 @@ let coverage = """
             {
                "coveredLines":23,
                "lineCoverage":0.85185185185185186,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Sources/Combine/SwiftUISpin.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Sources/Combine/SwiftUISpin.swift",
                "functions":[
                   {
                      "coveredLines":1,
@@ -359,7 +359,7 @@ let coverage = """
             {
                "coveredLines":38,
                "lineCoverage":1,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Sources/Combine/AnyPublisher+streamFromSpin.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Sources/Combine/AnyPublisher+streamFromSpin.swift",
                "functions":[
                   {
                      "coveredLines":18,
@@ -400,7 +400,7 @@ let coverage = """
             {
                "coveredLines":56,
                "lineCoverage":1,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Sources/Combine/Feedback.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Sources/Combine/Feedback.swift",
                "functions":[
                   {
                      "coveredLines":10,
@@ -481,7 +481,7 @@ let coverage = """
          ],
          "name":"SpinCombine.framework",
          "executableLines":209,
-         "buildProductPath":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Build/Build/Products/Debug/SpinCombine.framework/Versions/A/SpinCombine"
+         "buildProductPath":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Build/Build/Products/Debug/SpinCombine.framework/Versions/A/SpinCombine"
       },
       {
          "coveredLines":1474,
@@ -490,7 +490,7 @@ let coverage = """
             {
                "coveredLines":24,
                "lineCoverage":1,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/AnyCancellable+DisposeBagTests.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/AnyCancellable+DisposeBagTests.swift",
                "functions":[
                   {
                      "coveredLines":16,
@@ -571,7 +571,7 @@ let coverage = """
             {
                "coveredLines":258,
                "lineCoverage":1,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/FeedbackTests.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/FeedbackTests.swift",
                "functions":[
                   {
                      "coveredLines":30,
@@ -868,7 +868,7 @@ let coverage = """
             {
                "coveredLines":3,
                "lineCoverage":1,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/DispatchQueue+currentLabel.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/DispatchQueue+currentLabel.swift",
                "functions":[
                   {
                      "coveredLines":3,
@@ -885,7 +885,7 @@ let coverage = """
             {
                "coveredLines":207,
                "lineCoverage":0.89224137931034486,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/UISpinTests.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/UISpinTests.swift",
                "functions":[
                   {
                      "coveredLines":4,
@@ -1190,7 +1190,7 @@ let coverage = """
             {
                "coveredLines":18,
                "lineCoverage":0.8571428571428571,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/PublisherExpectations/Recording.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/PublisherExpectations/Recording.swift",
                "functions":[
                   {
                      "coveredLines":3,
@@ -1223,7 +1223,7 @@ let coverage = """
             {
                "coveredLines":53,
                "lineCoverage":1,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/AnyPublisher+ReactiveStreamTests.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/AnyPublisher+ReactiveStreamTests.swift",
                "functions":[
                   {
                      "coveredLines":1,
@@ -1312,7 +1312,7 @@ let coverage = """
             {
                "coveredLines":169,
                "lineCoverage":1,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/SpinIntegrationTests.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/SpinIntegrationTests.swift",
                "functions":[
                   {
                      "coveredLines":54,
@@ -1441,7 +1441,7 @@ let coverage = """
             {
                "coveredLines":0,
                "lineCoverage":0,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/RecordingError.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/RecordingError.swift",
                "functions":[
                   {
                      "coveredLines":0,
@@ -1458,7 +1458,7 @@ let coverage = """
             {
                "coveredLines":117,
                "lineCoverage":1,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/AnyPublisher+streamFromSpinTests.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/AnyPublisher+streamFromSpinTests.swift",
                "functions":[
                   {
                      "coveredLines":39,
@@ -1611,7 +1611,7 @@ let coverage = """
             {
                "coveredLines":297,
                "lineCoverage":0.91104294478527603,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/SwiftUISpinTests.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/SwiftUISpinTests.swift",
                "functions":[
                   {
                      "coveredLines":0,
@@ -2004,7 +2004,7 @@ let coverage = """
             {
                "coveredLines":9,
                "lineCoverage":1,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/PublisherExpectations/Map.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/PublisherExpectations/Map.swift",
                "functions":[
                   {
                      "coveredLines":3,
@@ -2037,7 +2037,7 @@ let coverage = """
             {
                "coveredLines":0,
                "lineCoverage":0,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/PublisherExpectations/Inverted.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/PublisherExpectations/Inverted.swift",
                "functions":[
                   {
                      "coveredLines":0,
@@ -2062,7 +2062,7 @@ let coverage = """
             {
                "coveredLines":0,
                "lineCoverage":0,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/PublisherExpectations/Prefix.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/PublisherExpectations/Prefix.swift",
                "functions":[
                   {
                      "coveredLines":0,
@@ -2127,7 +2127,7 @@ let coverage = """
             {
                "coveredLines":6,
                "lineCoverage":1,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/PublisherExpectation.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/PublisherExpectation.swift",
                "functions":[
                   {
                      "coveredLines":6,
@@ -2144,7 +2144,7 @@ let coverage = """
             {
                "coveredLines":0,
                "lineCoverage":0,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/PublisherExpectations/Next.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/PublisherExpectations/Next.swift",
                "functions":[
                   {
                      "coveredLines":0,
@@ -2201,7 +2201,7 @@ let coverage = """
             {
                "coveredLines":0,
                "lineCoverage":0,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/PublisherExpectations/NextOne.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/PublisherExpectations/NextOne.swift",
                "functions":[
                   {
                      "coveredLines":0,
@@ -2266,7 +2266,7 @@ let coverage = """
             {
                "coveredLines":5,
                "lineCoverage":1,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/AnyPublisher+subscribe.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/AnyPublisher+subscribe.swift",
                "functions":[
                   {
                      "coveredLines":3,
@@ -2299,7 +2299,7 @@ let coverage = """
             {
                "coveredLines":94,
                "lineCoverage":1,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/ReducerTests.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/ReducerTests.swift",
                "functions":[
                   {
                      "coveredLines":1,
@@ -2396,7 +2396,7 @@ let coverage = """
             {
                "coveredLines":214,
                "lineCoverage":0.59610027855153203,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/Recorder.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/Recorder.swift",
                "functions":[
                   {
                      "coveredLines":0,
@@ -2749,7 +2749,7 @@ let coverage = """
             {
                "coveredLines":0,
                "lineCoverage":0,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/PublisherExpectations/Finished.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Tests/CombineTests/CombineExpectations/PublisherExpectations/Finished.swift",
                "functions":[
                   {
                      "coveredLines":0,
@@ -2790,7 +2790,7 @@ let coverage = """
          ],
          "name":"SpinCombineTests.xctest",
          "executableLines":1858,
-         "buildProductPath":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Build/Build/Products/Debug/SpinCombineTests.xctest/Contents/MacOS/SpinCombineTests"
+         "buildProductPath":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Build/Build/Products/Debug/SpinCombineTests.xctest/Contents/MacOS/SpinCombineTests"
       },
       {
          "coveredLines":107,
@@ -2799,7 +2799,7 @@ let coverage = """
             {
                "coveredLines":25,
                "lineCoverage":0.52083333333333337,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Sources/Common/AnySpin.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Sources/Common/AnySpin.swift",
                "functions":[
                   {
                      "coveredLines":5,
@@ -2904,7 +2904,7 @@ let coverage = """
             {
                "coveredLines":13,
                "lineCoverage":1,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Sources/Common/StateRenderer.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Sources/Common/StateRenderer.swift",
                "functions":[
                   {
                      "coveredLines":3,
@@ -2953,7 +2953,7 @@ let coverage = """
             {
                "coveredLines":24,
                "lineCoverage":1,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Sources/Common/Spinner.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Sources/Common/Spinner.swift",
                "functions":[
                   {
                      "coveredLines":3,
@@ -3018,7 +3018,7 @@ let coverage = """
             {
                "coveredLines":35,
                "lineCoverage":0.26315789473684209,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Sources/Common/FeedbackDefinition+Default.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Sources/Common/FeedbackDefinition+Default.swift",
                "functions":[
                   {
                      "coveredLines":3,
@@ -3195,7 +3195,7 @@ let coverage = """
             {
                "coveredLines":10,
                "lineCoverage":1,
-               "path":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Sources/Common/Weakify.swift",
+               "path":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Sources/Common/Weakify.swift",
                "functions":[
                   {
                      "coveredLines":6,
@@ -3220,7 +3220,7 @@ let coverage = """
          ],
          "name":"SpinCommon.framework",
          "executableLines":228,
-         "buildProductPath":"/Users/johndoe/Development/Contributions/Spin/Spin.Swift/Build/Build/Products/Debug/SpinCommon.framework/Versions/A/SpinCommon"
+         "buildProductPath":"/Users/twittemberg/Development/Contributions/Spin/Spin.Swift/Build/Build/Products/Debug/SpinCommon.framework/Versions/A/SpinCommon"
       }
    ],
    "executableLines":2295

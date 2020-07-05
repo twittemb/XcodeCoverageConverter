@@ -5,8 +5,7 @@
 //  Created by Thibault Wittemberg on 2020-06-01.
 //
 
-import Commons
-import Filters
+@testable import Core
 import XCTest
 
 final class TargetsFilterTests: XCTestCase {
@@ -19,9 +18,13 @@ final class TargetsFilterTests: XCTestCase {
         let expectedReport = CoverageReport(executableLines: 0, targets: [target1], lineCoverage: 0, coveredLines: 0)
 
         // When: filtering the coverage report by excluding targets 2 and 3
-        let receivedReport = Xccov.Filter.Targets.filter(coverageReport: coverageReport, targetsToExclude: ["2", "3"])
+        let receivedReport = Xccov.Filters.Targets.filter(coverageReport: coverageReport, targetsToExclude: ["2", "3"])
 
         // Then: the filtered coverage report has only target 1
         XCTAssertEqual(receivedReport, expectedReport)
     }
+
+    static var allTests = [
+        ("testFilter_removes_targets_to_exclude", testFilter_removes_targets_to_exclude),
+    ]
 }

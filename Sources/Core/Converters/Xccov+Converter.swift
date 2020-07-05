@@ -14,4 +14,3 @@ public extension Xccov {
 public extension Xccov.Converters {
     typealias Converter = (CoverageReport) -> Result<String, Xccov.Error>
 }
-

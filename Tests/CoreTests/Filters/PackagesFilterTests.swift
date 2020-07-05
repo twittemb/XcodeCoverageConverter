@@ -5,8 +5,7 @@
 //  Created by Thibault Wittemberg on 2020-06-01.
 //
 
-import Commons
-import Filters
+@testable import Core
 import XCTest
 
 final class PackagesFilterTests: XCTestCase {
@@ -28,9 +27,13 @@ final class PackagesFilterTests: XCTestCase {
         let expectedReport = CoverageReport(executableLines: 0, targets: [expectedTarget1, expectedTarget2], lineCoverage: 0, coveredLines: 0)
 
         // When: filtering the coverage report by excluding packages client1 and client2
-        let receivedReport = Xccov.Filter.Packages.filter(coverageReport: coverageReport, packagesToExclude: ["client1", "client2"])
+        let receivedReport = Xccov.Filters.Packages.filter(coverageReport: coverageReport, packagesToExclude: ["client1", "client2"])
 
         // Then: the filtered coverage report has only 2 differente packages left
         XCTAssertEqual(receivedReport, expectedReport)
     }
+
+    static var allTests = [
+        ("testFilter_removes_packages_to_exclude", testFilter_removes_packages_to_exclude),
+    ]
 }

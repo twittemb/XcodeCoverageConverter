@@ -5,7 +5,7 @@
 //  Created by Thibault Wittemberg on 2020-06-01.
 //
 
-import Commons
+@testable import Core
 import XCTest
 
 final class String_ContainsTests: XCTestCase {
@@ -31,4 +31,9 @@ final class String_ContainsTests: XCTestCase {
         // Then: the result is false
         XCTAssertFalse(sut.contains(elementsOf: array))
     }
+
+    static var allTests = [
+        ("testContains_returns_true_when_string_has_element", testContains_returns_true_when_string_has_element),
+        ("testContains_returns_false_when_string_has_noElement", testContains_returns_false_when_string_has_noElement),
+    ]
 }

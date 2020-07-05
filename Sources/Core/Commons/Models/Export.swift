@@ -5,7 +5,7 @@
 //  Created by Thibault Wittemberg on 2020-06-03.
 //
 
-public struct Export {
+public struct Export: Equatable {
     public let content: String
     public let filename: String
 

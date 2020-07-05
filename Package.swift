@@ -18,16 +18,12 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "XcodeCoverageConverter",
-            dependencies: [.product(name: "ArgumentParser", package: "swift-argument-parser"), "Core"],
+            dependencies: ["Core"],
             path: "Sources/XcodeCoverageConverter"),
         .target(
             name: "Core",
-            dependencies: [],
+            dependencies: [.product(name: "ArgumentParser", package: "swift-argument-parser")],
             path: "Sources/Core"),
-        .testTarget(
-            name: "XcodeCoverageConverterTests",
-            dependencies: ["XcodeCoverageConverter"],
-            path: "Tests/XcodeCoverageConverterTests"),
         .testTarget(
             name: "CoreTests",
             dependencies: ["Core"],

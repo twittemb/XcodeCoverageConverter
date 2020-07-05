@@ -12,9 +12,16 @@ public extension Xccov.Converters {
 }
 
 public extension Xccov.Converters.CoberturaXml {
-    static func convert(coverageReport: CoverageReport) -> Result<String, Xccov.Error> {
-        let currentDirectoryPath = FileManager.default.currentDirectoryPath
 
+    static func convert(coverageReport: CoverageReport) -> Result<String, Xccov.Error> {
+        Self.convert(coverageReport: coverageReport,
+                     timeStamp: Date().timeIntervalSince1970,
+                     currentDirectoryPath: FileManager.default.currentDirectoryPath)
+    }
+
+    static func convert(coverageReport: CoverageReport,
+                        timeStamp: TimeInterval = Date().timeIntervalSince1970,
+                        currentDirectoryPath: String = FileManager.default.currentDirectoryPath) -> Result<String, Xccov.Error> {
         let dtd = try! XMLDTD(contentsOf: URL(string: "http://cobertura.sourceforge.net/xml/coverage-04.dtd")!)
         dtd.name = "coverage"
         dtd.systemID = "http://cobertura.sourceforge.net/xml/coverage-04.dtd"
@@ -24,7 +31,7 @@ public extension Xccov.Converters.CoberturaXml {
         rootElement.addAttribute(XMLNode.attribute(withName: "branch-rate", stringValue: "1.0") as! XMLNode)
         rootElement.addAttribute(XMLNode.attribute(withName: "lines-covered", stringValue: "\(coverageReport.coveredLines)") as! XMLNode)
         rootElement.addAttribute(XMLNode.attribute(withName: "lines-valid", stringValue: "\(coverageReport.executableLines)") as! XMLNode)
-        rootElement.addAttribute(XMLNode.attribute(withName: "timestamp", stringValue: "\(Date().timeIntervalSince1970)") as! XMLNode)
+        rootElement.addAttribute(XMLNode.attribute(withName: "timestamp", stringValue: "\(timeStamp)") as! XMLNode)
         rootElement.addAttribute(XMLNode.attribute(withName: "version", stringValue: "diff_coverage 0.1") as! XMLNode)
         rootElement.addAttribute(XMLNode.attribute(withName: "complexity", stringValue: "0.0") as! XMLNode)
         rootElement.addAttribute(XMLNode.attribute(withName: "branches-valid", stringValue: "1.0") as! XMLNode)
