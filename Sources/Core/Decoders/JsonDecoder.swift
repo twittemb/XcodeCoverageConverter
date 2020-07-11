@@ -28,5 +28,3 @@ public extension Xccov.Decoders.Json {
         return .success(coverageReport)
     }
 }
-
-

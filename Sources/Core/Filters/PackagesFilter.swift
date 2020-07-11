@@ -11,7 +11,6 @@ public extension Xccov.Filters {
 
 public extension Xccov.Filters.Packages {
     static func filter(coverageReport: CoverageReport, packagesToExclude: [String]) -> CoverageReport {
-
         guard !packagesToExclude.isEmpty else { return coverageReport }
 
         let targetsToKeep = coverageReport.targets.map { target -> TargetCoverageReport in

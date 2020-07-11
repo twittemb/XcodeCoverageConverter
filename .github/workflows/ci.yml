@@ -1,0 +1,12 @@
+name: Tests
+
+on: [push]
+
+jobs:
+  SPM:
+    name: "Swift Package Manager"
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run tests
+      run: set -o pipefail && swift test

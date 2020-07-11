@@ -12,7 +12,7 @@ struct Xcc: ParsableCommand {
 }
 
 struct Generate: ParsableCommand {
-    public static let configuration = CommandConfiguration(abstract: "Generates a converted file from xccov results")
+    static let configuration = CommandConfiguration(abstract: "Generates a converted file from xccov results")
 
     @Argument(help: "The full path to the json file to convert")
     private var jsonFile: String
@@ -41,9 +41,9 @@ struct Generate: ParsableCommand {
                                                      verbose: verbose)
 
         switch result {
-        case .success(_):
+        case .success:
             throw CleanExit.message("All good")
-        case .failure(_):
+        case .failure:
             throw ExitCode.failure
         }
     }

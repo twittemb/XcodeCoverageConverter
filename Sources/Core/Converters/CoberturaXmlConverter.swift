@@ -11,31 +11,37 @@ public extension Xccov.Converters {
     enum CoberturaXml {}
 }
 
-public extension Xccov.Converters.CoberturaXml {
+extension XMLNode {
+    static func nodeAttribute(withName name: String, stringValue value: String) -> XMLNode {
+        guard let attribute = XMLNode.attribute(withName: name, stringValue: value) as? XMLNode else {
+            return XMLNode()
+        }
 
+        return attribute
+    }
+}
+
+public extension Xccov.Converters.CoberturaXml {
     static func convert(coverageReport: CoverageReport) -> Result<String, Xccov.Error> {
         Self.convert(coverageReport: coverageReport,
                      timeStamp: Date().timeIntervalSince1970,
                      currentDirectoryPath: FileManager.default.currentDirectoryPath)
     }
 
+    //swiftlint:disable:next function_body_length
     static func convert(coverageReport: CoverageReport,
                         timeStamp: TimeInterval = Date().timeIntervalSince1970,
                         currentDirectoryPath: String = FileManager.default.currentDirectoryPath) -> Result<String, Xccov.Error> {
-        let dtd = try! XMLDTD(contentsOf: URL(string: "http://cobertura.sourceforge.net/xml/coverage-04.dtd")!)
+        guard
+            let dtdUrl = URL(string: "http://cobertura.sourceforge.net/xml/coverage-04.dtd"),
+            let dtd = try? XMLDTD(contentsOf: dtdUrl) else {
+                return .failure(.conversionFailed("DTD could not be constructed"))
+        }
+
         dtd.name = "coverage"
         dtd.systemID = "http://cobertura.sourceforge.net/xml/coverage-04.dtd"
 
-        let rootElement = XMLElement(name: "coverage")
-        rootElement.addAttribute(XMLNode.attribute(withName: "line-rate", stringValue: "\(coverageReport.lineCoverage)") as! XMLNode)
-        rootElement.addAttribute(XMLNode.attribute(withName: "branch-rate", stringValue: "1.0") as! XMLNode)
-        rootElement.addAttribute(XMLNode.attribute(withName: "lines-covered", stringValue: "\(coverageReport.coveredLines)") as! XMLNode)
-        rootElement.addAttribute(XMLNode.attribute(withName: "lines-valid", stringValue: "\(coverageReport.executableLines)") as! XMLNode)
-        rootElement.addAttribute(XMLNode.attribute(withName: "timestamp", stringValue: "\(timeStamp)") as! XMLNode)
-        rootElement.addAttribute(XMLNode.attribute(withName: "version", stringValue: "diff_coverage 0.1") as! XMLNode)
-        rootElement.addAttribute(XMLNode.attribute(withName: "complexity", stringValue: "0.0") as! XMLNode)
-        rootElement.addAttribute(XMLNode.attribute(withName: "branches-valid", stringValue: "1.0") as! XMLNode)
-        rootElement.addAttribute(XMLNode.attribute(withName: "branches-covered", stringValue: "1.0") as! XMLNode)
+        let rootElement = Self.makeRootElement(coverageReport: coverageReport, timeStamp: timeStamp)
 
         let doc = XMLDocument(rootElement: rootElement)
         doc.version = "1.0"
@@ -48,7 +54,7 @@ public extension Xccov.Converters.CoberturaXml {
 
         let packagesElement = XMLElement(name: "packages")
         rootElement.addChild(packagesElement)
-        
+
         // Sort files to avoid duplicated packages
         let allFiles = coverageReport.targets.flatMap { $0.files }.sorted { $0.path > $1.path }
 
@@ -71,18 +77,19 @@ public extension Xccov.Converters.CoberturaXml {
 
             currentPackage = packageName
             if isNewPackage {
-                currentPackageElement.addAttribute(XMLNode.attribute(withName: "name", stringValue: packageName) as! XMLNode)
-                currentPackageElement.addAttribute(XMLNode.attribute(withName: "line-rate", stringValue: "\(fileCoverageReport.lineCoverage)") as! XMLNode)
-                currentPackageElement.addAttribute(XMLNode.attribute(withName: "branch-rate", stringValue: "1.0") as! XMLNode)
-                currentPackageElement.addAttribute(XMLNode.attribute(withName: "complexity", stringValue: "0.0") as! XMLNode)
+                currentPackageElement.addAttribute(XMLNode.nodeAttribute(withName: "name", stringValue: packageName))
+                currentPackageElement.addAttribute(XMLNode.nodeAttribute(withName: "line-rate", stringValue: "\(fileCoverageReport.lineCoverage)"))
+                currentPackageElement.addAttribute(XMLNode.nodeAttribute(withName: "branch-rate", stringValue: "1.0"))
+                currentPackageElement.addAttribute(XMLNode.nodeAttribute(withName: "complexity", stringValue: "0.0"))
             }
 
             let classElement = XMLElement(name: "class")
-            classElement.addAttribute(XMLNode.attribute(withName: "name", stringValue: "\(packageName).\((fileCoverageReport.name as NSString).deletingPathExtension)") as! XMLNode)
-            classElement.addAttribute(XMLNode.attribute(withName: "filename", stringValue: "\(filePath)") as! XMLNode)
-            classElement.addAttribute(XMLNode.attribute(withName: "line-rate", stringValue: "\(fileCoverageReport.lineCoverage)") as! XMLNode)
-            classElement.addAttribute(XMLNode.attribute(withName: "branch-rate", stringValue: "1.0") as! XMLNode)
-            classElement.addAttribute(XMLNode.attribute(withName: "complexity", stringValue: "0.0") as! XMLNode)
+            classElement.addAttribute(XMLNode.nodeAttribute(withName: "name",
+                                                            stringValue: "\(packageName).\((fileCoverageReport.name as NSString).deletingPathExtension)"))
+            classElement.addAttribute(XMLNode.nodeAttribute(withName: "filename", stringValue: "\(filePath)"))
+            classElement.addAttribute(XMLNode.nodeAttribute(withName: "line-rate", stringValue: "\(fileCoverageReport.lineCoverage)"))
+            classElement.addAttribute(XMLNode.nodeAttribute(withName: "branch-rate", stringValue: "1.0"))
+            classElement.addAttribute(XMLNode.nodeAttribute(withName: "complexity", stringValue: "0.0"))
             currentPackageElement.addChild(classElement)
 
             let linesElement = XMLElement(name: "lines")
@@ -90,11 +97,12 @@ public extension Xccov.Converters.CoberturaXml {
 
             for functionCoverageReport in fileCoverageReport.functions {
                 for index in 0..<functionCoverageReport.executableLines {
-                    // Function coverage report won't be 100% reliable without parsing it by file (would need to use xccov view --file filePath currentDirectory + Build/Logs/Test/*.xccovarchive)
+                    // Function coverage report won't be 100% reliable without parsing it by file
+                    // (would need to use xccov view --file filePath currentDirectory + Build/Logs/Test/*.xccovarchive)
                     let lineElement = XMLElement(kind: .element, options: .nodeCompactEmptyElement)
                     lineElement.name = "line"
-                    lineElement.addAttribute(XMLNode.attribute(withName: "number", stringValue: "\(functionCoverageReport.lineNumber + index)") as! XMLNode)
-                    lineElement.addAttribute(XMLNode.attribute(withName: "branch", stringValue: "false") as! XMLNode)
+                    lineElement.addAttribute(XMLNode.nodeAttribute(withName: "number", stringValue: "\(functionCoverageReport.lineNumber + index)"))
+                    lineElement.addAttribute(XMLNode.nodeAttribute(withName: "branch", stringValue: "false"))
 
                     let lineHits: Int
                     if index < functionCoverageReport.coveredLines {
@@ -103,12 +111,27 @@ public extension Xccov.Converters.CoberturaXml {
                         lineHits = 0
                     }
 
-                    lineElement.addAttribute(XMLNode.attribute(withName: "hits", stringValue: "\(lineHits)") as! XMLNode)
+                    lineElement.addAttribute(XMLNode.nodeAttribute(withName: "hits", stringValue: "\(lineHits)"))
                     linesElement.addChild(lineElement)
                 }
             }
         }
 
         return .success(doc.xmlString(options: [.nodePrettyPrint]))
+    }
+
+    static func makeRootElement(coverageReport: CoverageReport, timeStamp: TimeInterval) -> XMLElement {
+        let rootElement = XMLElement(name: "coverage")
+        rootElement.addAttribute(XMLNode.nodeAttribute(withName: "line-rate", stringValue: "\(coverageReport.lineCoverage)"))
+        rootElement.addAttribute(XMLNode.nodeAttribute(withName: "branch-rate", stringValue: "1.0"))
+        rootElement.addAttribute(XMLNode.nodeAttribute(withName: "lines-covered", stringValue: "\(coverageReport.coveredLines)"))
+        rootElement.addAttribute(XMLNode.nodeAttribute(withName: "lines-valid", stringValue: "\(coverageReport.executableLines)"))
+        rootElement.addAttribute(XMLNode.nodeAttribute(withName: "timestamp", stringValue: "\(timeStamp)"))
+        rootElement.addAttribute(XMLNode.nodeAttribute(withName: "version", stringValue: "diff_coverage 0.1"))
+        rootElement.addAttribute(XMLNode.nodeAttribute(withName: "complexity", stringValue: "0.0"))
+        rootElement.addAttribute(XMLNode.nodeAttribute(withName: "branches-valid", stringValue: "1.0"))
+        rootElement.addAttribute(XMLNode.nodeAttribute(withName: "branches-covered", stringValue: "1.0"))
+
+        return rootElement
     }
 }

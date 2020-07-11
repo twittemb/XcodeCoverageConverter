@@ -11,7 +11,6 @@ public extension Xccov.Filters {
 
 public extension Xccov.Filters.Targets {
     static func filter(coverageReport: CoverageReport, targetsToExclude: [String]) -> CoverageReport {
-
         guard !targetsToExclude.isEmpty else { return coverageReport }
 
         let targetsToKeep = coverageReport.targets.filter { !$0.name.contains(elementsOf: targetsToExclude) }

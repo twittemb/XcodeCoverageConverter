@@ -12,7 +12,6 @@ public extension Xccov.Commands {
 }
 
 public extension Xccov.Commands.Generate {
-
     enum Output: String, ExpressibleByArgument {
         case coberturaXml = "cobertura-xml"
         case failable = "failable"
@@ -46,14 +45,14 @@ public extension Xccov.Commands.Generate {
             .map { Self.convert(report: report, to: $0) }
             .reduce(Result.success([Export]())) { (previous, current) -> Result<[Export], Xccov.Error> in
                 switch (previous, current) {
-                case (.success(let exports), .success(let export)):
+                case let (.success(exports), .success(export)):
                     return .success(exports+[export])
                 case (.failure(let error), _):
                     return .failure(error)
                 case (_, .failure(let error)):
                     return .failure(error)
                 }
-        }
+            }
     }
 
     static func execute(jsonFile: String,

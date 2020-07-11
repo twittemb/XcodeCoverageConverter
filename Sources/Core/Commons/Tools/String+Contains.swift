@@ -9,7 +9,7 @@ import Foundation
 
 public extension String {
     func contains(elementsOf array: [String]) -> Bool {
-        array.reduce(false) { (previousResult, element) -> Bool in
+        array.reduce(false) { previousResult, element -> Bool in
             previousResult || self.contains(element)
         }
     }

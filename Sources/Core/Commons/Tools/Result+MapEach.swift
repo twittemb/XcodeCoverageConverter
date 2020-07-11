@@ -16,7 +16,7 @@ public extension Result where Success: Collection {
             let initial: Result<[Output], Failure> = .success([Output]())
             return successCollection
                 .map { success($0) }
-                .reduce(initial) { (previous, current) -> Result<[Output], Failure> in
+                .reduce(initial) { previous, current -> Result<[Output], Failure> in
                     switch (previous, current) {
                     case (.success(let outputs), .success(let output)):
                         return .success(outputs+[output])
@@ -24,7 +24,7 @@ public extension Result where Success: Collection {
                         return .failure(error)
                     case (_, .failure(let error)):
                         return .failure(error)
-                    }
+                }
             }
         }
     }
