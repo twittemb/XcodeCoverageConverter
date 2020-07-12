@@ -62,6 +62,9 @@ public extension Xccov.Converters.CoberturaXml {
         var currentPackageElement: XMLElement!
         var isNewPackage = false
 
+        var currentClassesElement = XMLElement()
+
+
         allFiles.forEach { fileCoverageReport in
             // Define file path relative to source!
             let filePath = fileCoverageReport.path.replacingOccurrences(of: currentDirectoryPath + "/", with: "")
@@ -72,10 +75,9 @@ public extension Xccov.Converters.CoberturaXml {
 
             if isNewPackage {
                 currentPackageElement = XMLElement(name: "package")
+                currentClassesElement = XMLElement()
                 packagesElement.addChild(currentPackageElement)
             }
-
-            var currentClassesElement = XMLElement()
 
             currentPackage = packageName
             if isNewPackage {
@@ -95,7 +97,6 @@ public extension Xccov.Converters.CoberturaXml {
             classElement.addAttribute(XMLNode.nodeAttribute(withName: "branch-rate", stringValue: "1.0"))
             classElement.addAttribute(XMLNode.nodeAttribute(withName: "complexity", stringValue: "0.0"))
             currentClassesElement.addChild(classElement)
-//            currentPackageElement.addChild(classElement)
 
             let linesElement = XMLElement(name: "lines")
             classElement.addChild(linesElement)
