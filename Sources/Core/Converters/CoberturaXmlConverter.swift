@@ -75,12 +75,16 @@ public extension Xccov.Converters.CoberturaXml {
                 packagesElement.addChild(currentPackageElement)
             }
 
+            var currentClassesElement = XMLElement()
+
             currentPackage = packageName
             if isNewPackage {
                 currentPackageElement.addAttribute(XMLNode.nodeAttribute(withName: "name", stringValue: packageName))
                 currentPackageElement.addAttribute(XMLNode.nodeAttribute(withName: "line-rate", stringValue: "\(fileCoverageReport.lineCoverage)"))
                 currentPackageElement.addAttribute(XMLNode.nodeAttribute(withName: "branch-rate", stringValue: "1.0"))
                 currentPackageElement.addAttribute(XMLNode.nodeAttribute(withName: "complexity", stringValue: "0.0"))
+                currentClassesElement = XMLElement(name: "classes")
+                currentPackageElement.addChild(currentClassesElement)
             }
 
             let classElement = XMLElement(name: "class")
@@ -90,7 +94,8 @@ public extension Xccov.Converters.CoberturaXml {
             classElement.addAttribute(XMLNode.nodeAttribute(withName: "line-rate", stringValue: "\(fileCoverageReport.lineCoverage)"))
             classElement.addAttribute(XMLNode.nodeAttribute(withName: "branch-rate", stringValue: "1.0"))
             classElement.addAttribute(XMLNode.nodeAttribute(withName: "complexity", stringValue: "0.0"))
-            currentPackageElement.addChild(classElement)
+            currentClassesElement.addChild(classElement)
+//            currentPackageElement.addChild(classElement)
 
             let linesElement = XMLElement(name: "lines")
             classElement.addChild(linesElement)
