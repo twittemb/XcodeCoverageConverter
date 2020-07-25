@@ -19,3 +19,11 @@ The XML output can then be uploaded to your CI provider as an artefact. It has b
 ### Contribution
 
 PR are of course welcome. To add new input or output formats, please refer to how `Decoders` and `Converters` are implemented.
+
+### Credits
+
+This tool is based on the following gist:
+
+[https://gist.github.com/csaby02/ab2441715a89865a7e8e29804df23dc6](https://gist.github.com/csaby02/ab2441715a89865a7e8e29804df23dc6)
+
+Thanks to its author.
