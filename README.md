@@ -1,3 +1,21 @@
 # XcodeCoverageConverter
 
-A description of this package.
+This tool aims to convert Xcode generated code coverage data into CI friendly formats.
+
+Please execute `xcc generate --help` for all options.
+
+### Installation 
+
+`brew install twittemb/formulae/Xcodecoverageconverter`
+
+### From xccov JSON to Cobertura XML
+
+- 1: Generate code coverage data when unit testing. You have to add the following options to the xcodebuild command line: `-derivedDataPath Build/ -enableCodeCoverage YES`
+- 2: Generate JSON from the code coverage data: `xcrun xccov view --report --json Build/Logs/Test/*.xcresult > coverage.json`
+- 3: Run xcc to convert the report into a Cobertura XML file: `/usr/local/bin/xcc generate coverage.json . cobertura-xml --exclude-packages Tests` (this command excludes the Tests package from the export)
+
+The XML output can then be uploaded to your CI provider as an artefact. It has been sucessfully tested with Azure DevOps pipelines.
+
+### Contribution
+
+PR are of course welcome. To add new input or output formats, please refer to how `Decoders` and `Converters` are implemented.
