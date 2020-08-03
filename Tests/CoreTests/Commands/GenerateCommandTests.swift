@@ -67,11 +67,41 @@ final class GenerateCommandTests: XCTestCase {
         XCTAssertEqual(receivedResult, Result.failure(Xccov.Error.conversionFailed("")))
     }
 
+    func testExecute_writes_cobertura_xml_to_outputPath() {
+        // Given: a json report in a temporary directory
+        let tmpDir = FileManager.default.uniqueTemporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: tmpDir) }
+        _ = converterFixtureCoverageJson.write(toFile: "report.json", atPath: tmpDir.path)
+
+        // When: converting it to a cobertura-xml using the export method
+        let receivedResult = Xccov.Commands.Generate.execute(
+            jsonFile: "\(tmpDir.path)/report.json",
+            outputPath: "\(tmpDir.path)/reports/coverage/",
+            outputs: [.coberturaXml],
+            excludeTargets: [], excludePackages: [], verbose: false
+        )
+
+        // Then: a file "cobertura.xml" exists in the specified outputPath
+        XCTAssertTrue(FileManager.default.fileExists(atPath: "\(tmpDir.path)/reports/coverage/cobertura.xml"))
+        XCTAssertNoThrow(try receivedResult.get())
+    }
+
     static var allTests = [
         ("testFilename_return_expected_value_for_cobertura", testFilename_return_expected_value_for_cobertura),
         ("testConvert_to_coberturalXml_return_success_when_coverageReport_is_valid", testConvert_to_coberturalXml_return_success_when_coverageReport_is_valid),
         ("testConvert_to_failable_return_failure", testConvert_to_failable_return_failure),
         ("testConvert_to_several_outputs_return_success_when_coverageReport_is_valid", testConvert_to_several_outputs_return_success_when_coverageReport_is_valid),
         ("testConvert_to_several_outputs_return_failure_when_a_conversion_fails", testConvert_to_several_outputs_return_failure_when_a_conversion_fails),
+        ("testExecute_writes_cobertura_xml_to_outputPath", testExecute_writes_cobertura_xml_to_outputPath),
     ]
+}
+
+private extension FileManager {
+
+    func uniqueTemporaryDirectory(_ uuid: UUID = .init()) -> URL {
+        let result = self.temporaryDirectory.appendingPathComponent(uuid.uuidString)
+        try? self.createDirectory(at: result, withIntermediateDirectories: true, attributes: nil)
+        return result
+    }
+
 }

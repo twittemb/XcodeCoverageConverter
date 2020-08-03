@@ -28,6 +28,10 @@ install: Xcodecoverageconverter
 uninstall:
 	@rm -rf "$(bindir)/xcc"
 
+.PHONY: test
+test:
+	@swift test
+
 .PHONY: clean
 distclean:
 	@rm -f $(BUILDDIR)/release
