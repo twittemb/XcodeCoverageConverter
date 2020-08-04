@@ -82,7 +82,7 @@ public extension Xccov.Commands.Generate {
             .verbose(verbose,
                      onFailure: { failure in print("The following error occured while converting to output formats, \(failure)") },
                      onSuccess: { _ in print("The payload has been exported to output formats with success") })
-            .mapEach { $0.write() }
+            .mapEach { $0.write(atPath: outputPath) }
             .map { _ in () }
     }
 }

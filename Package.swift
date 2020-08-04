@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "XcodeCoverageConverter",
+    platforms: [
+        .macOS(.v10_12),
+    ],
     products: [
         .executable(name: "xcc", targets: ["XcodeCoverageConverter"])
     ],

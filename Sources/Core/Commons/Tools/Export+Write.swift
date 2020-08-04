@@ -6,7 +6,7 @@
 //
 
 public extension Export {
-    func write() -> Result<Export, Xccov.Error> {
-        self.content.write(filename: self.filename).map { self }
+    func write(atPath path: String) -> Result<Export, Xccov.Error> {
+        self.content.write(toFile: self.filename, atPath: path).map { self }
     }
 }
