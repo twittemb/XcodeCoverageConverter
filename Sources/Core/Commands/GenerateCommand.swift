@@ -14,12 +14,15 @@ public extension Xccov.Commands {
 public extension Xccov.Commands.Generate {
     enum Output: String, ExpressibleByArgument {
         case coberturaXml = "cobertura-xml"
+        case sonarqubeXml = "sonarqube-xml"
         case failable = "failable"
 
         var converter: Xccov.Converters.Converter {
             switch self {
             case .coberturaXml:
                 return Xccov.Converters.CoberturaXml.convert(coverageReport:)
+            case .sonarqubeXml:
+                return Xccov.Converters.SonarqubeXml.convert(coverageReport:)
             case .failable:
                 return Xccov.Converters.FailableConverter.convert(coverageReport:)
             }
@@ -29,8 +32,11 @@ public extension Xccov.Commands.Generate {
             switch self {
             case .coberturaXml:
                 return "cobertura.xml"
+            case .sonarqubeXml:
+                return "sonarqube.xml"
             case .failable:
                 return "failable.xml"
+            
             }
         }
     }

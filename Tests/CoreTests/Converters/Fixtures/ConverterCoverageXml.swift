@@ -5,7 +5,7 @@
 //  Created by Thibault Wittemberg on 2020-07-04.
 //
 
-let converterFixtureCoverageXml = """
+let coberturaFixtureCoverageXml = """
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd" [
     <!ELEMENT coverage (sources?, packages)>
