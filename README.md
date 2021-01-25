@@ -16,6 +16,15 @@ Please execute `xcc generate --help` for all options.
 
 The XML output can then be uploaded to your CI provider as an artefact. It has been sucessfully tested with Azure DevOps pipelines.
 
+### Output formats
+
+`xcc` currently supports these output formats:
+
+- cobertura XML: `cobertura-xml`
+- sonarqube XML: `sonarqube-xml`
+
+You can specify several output formats in the CLI `/usr/local/bin/xcc generate coverage.json . cobertura-xml sonarqube-xml`
+
 ### Contribution
 
 PR are of course welcome. To add new input or output formats, please refer to how `Decoders` and `Converters` are implemented.
