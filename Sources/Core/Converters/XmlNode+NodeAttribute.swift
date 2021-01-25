@@ -1,5 +1,5 @@
 //
-//  XMLNodeAttribute.swift
+//  XMLNode+NodeAttribute.swift
 //  
 //
 //  Created by Harris, David (D.A.) on 1/20/21.

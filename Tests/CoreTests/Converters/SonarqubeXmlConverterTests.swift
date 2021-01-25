@@ -14,7 +14,7 @@ final class SonarqubeXmlConverterTests: XCTestCase {
         let data = converterFixtureCoverageJson.data(using: .utf8)
         let coverageReport = try! JSONDecoder().decode(CoverageReport.self, from: data!)
 
-        // When: converting to CoberturaXML
+        // When: converting to Sonarqube XML
         let result = Xccov.Converters.SonarqubeXml.convert(coverageReport: coverageReport)
         let receivedResult = try! result.get()
 

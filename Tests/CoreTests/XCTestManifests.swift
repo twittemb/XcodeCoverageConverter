@@ -18,6 +18,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(JsonDecoderTests.allTests),
         testCase(PackagesFilterTests.allTests),
         testCase(TargetsFilterTests.allTests),
+        testCase(SonarqubeXmlConverterTests.allTests)
     ]
 }
 #endif
