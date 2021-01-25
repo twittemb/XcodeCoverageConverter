@@ -11,16 +11,6 @@ public extension Xccov.Converters {
     enum CoberturaXml {}
 }
 
-extension XMLNode {
-    static func nodeAttribute(withName name: String, stringValue value: String) -> XMLNode {
-        guard let attribute = XMLNode.attribute(withName: name, stringValue: value) as? XMLNode else {
-            return XMLNode()
-        }
-
-        return attribute
-    }
-}
-
 public extension Xccov.Converters.CoberturaXml {
     static func convert(coverageReport: CoverageReport) -> Result<String, Xccov.Error> {
         Self.convert(coverageReport: coverageReport,

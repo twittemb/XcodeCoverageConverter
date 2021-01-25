@@ -21,7 +21,7 @@ final class CoberturaXmlConverterTests: XCTestCase {
         let receivedResult = try! result.get()
 
         // Then: the xml is the expected one
-        XCTAssertEqual(receivedResult, converterFixtureCoverageXml)
+        XCTAssertEqual(receivedResult, coberturaFixtureCoverageXml)
     }
 
     static var allTests = [
