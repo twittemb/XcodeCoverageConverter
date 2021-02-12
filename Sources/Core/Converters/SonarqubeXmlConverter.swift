@@ -13,6 +13,12 @@ public extension Xccov.Converters {
 
 public extension Xccov.Converters.SonarqubeXml {
     static func convert(coverageReport: CoverageReport) -> Result<String, Xccov.Error> {
+        Self.convert(coverageReport: coverageReport,
+                     currentDirectoryPath: FileManager.default.currentDirectoryPath)
+    }
+
+    static func convert(coverageReport: CoverageReport,
+                        currentDirectoryPath: String = FileManager.default.currentDirectoryPath) -> Result<String, Xccov.Error> {
         let rootElement = XMLElement(name: "coverage")
         rootElement.addAttribute(XMLNode.nodeAttribute(withName: "version", stringValue: "1"))
         
@@ -23,7 +29,8 @@ public extension Xccov.Converters.SonarqubeXml {
 
         
         allFiles.forEach { fileCoverageReport in
-            let filePath = fileCoverageReport.path
+            // Define file path relative to source
+            let filePath = fileCoverageReport.path.replacingOccurrences(of: currentDirectoryPath + "/", with: "")
             
             let fileElement = XMLElement(name: "file")
             fileElement.addAttribute(XMLNode.nodeAttribute(withName: "path", stringValue: filePath))
