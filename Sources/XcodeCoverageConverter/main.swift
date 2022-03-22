@@ -1,5 +1,6 @@
 import ArgumentParser
 import Core
+import Foundation
 
 struct Xcc: ParsableCommand {
     static let configuration = CommandConfiguration(
@@ -43,12 +44,12 @@ struct Generate: ParsableCommand {
         switch result {
         case .success:
             throw CleanExit.message("All good")
-        case .failure:
+        case .failure(let error):
+            let message = "\(error.localizedDescription)\n"
+            FileHandle.standardError.write(message.data(using: .utf8)!)
             throw ExitCode.failure
         }
     }
-
-
 }
 
 Xcc.main()
