@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Resources
 
 public extension Xccov.Converters {
     enum CoberturaXml {}
@@ -23,8 +24,7 @@ public extension Xccov.Converters.CoberturaXml {
                         timeStamp: TimeInterval = Date().timeIntervalSince1970,
                         currentDirectoryPath: String = FileManager.default.currentDirectoryPath) -> Result<String, Xccov.Error> {
         guard
-            let dtdUrl = URL(string: "http://cobertura.sourceforge.net/xml/coverage-04.dtd"),
-            let dtd = try? XMLDTD(contentsOf: dtdUrl) else {
+            let dtd = try? XMLDTD(data: Resources.coverageDTD) else {
                 return .failure(.conversionFailed("DTD could not be constructed"))
         }
 
