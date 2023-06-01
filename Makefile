@@ -17,7 +17,7 @@ Xcodecoverageconverter: $(SOURCES)
 	@swift build \
 		-c release \
 		--disable-sandbox \
-		--build-path "$(BUILDDIR)"
+		--scratch-path "$(BUILDDIR)"
 
 .PHONY: install
 install: Xcodecoverageconverter
@@ -31,6 +31,12 @@ uninstall:
 .PHONY: test
 test:
 	@swift test
+
+.PHONY: smoke
+smoke: Xcodecoverageconverter
+	xcodebuild -scheme XcodeCoverageConverter test -derivedDataPath DerivedData -destination "platform=macOS"
+	xcrun xccov view --report --json DerivedData/Logs/Test/*.xcresult > coverage.json
+	leaks -atExit -- "$(BUILDDIR)"/release/xcc generate coverage.json . cobertura-xml
 
 .PHONY: clean
 distclean:
