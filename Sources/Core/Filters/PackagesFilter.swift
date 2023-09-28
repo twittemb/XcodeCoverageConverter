@@ -15,18 +15,31 @@ public extension Xccov.Filters.Packages {
 
         let targetsToKeep = coverageReport.targets.map { target -> TargetCoverageReport in
             let filesToKeep = target.files.filter { !$0.path.contains(elementsOf: packagesToExclude) }
-            return TargetCoverageReport(buildProductPath: target.buildProductPath,
-                                        coveredLines: target.coveredLines,
-                                        executableLines: target.executableLines,
-                                        files: filesToKeep,
-                                        lineCoverage: target.lineCoverage,
-                                        name: target.name)
+            let adjusted = filesToKeep.reduce(into: (coveredLines: 0, executableLines: 0)) {
+                $0.coveredLines += $1.coveredLines
+                $0.executableLines += $1.executableLines
+            }
+            return TargetCoverageReport(
+                buildProductPath: target.buildProductPath,
+                coveredLines: adjusted.coveredLines,
+                executableLines: adjusted.executableLines,
+                files: filesToKeep,
+                lineCoverage: Double(adjusted.coveredLines) / Double(adjusted.executableLines),
+                name: target.name
+            )
         }
 
-        let filteredCoverageReport = CoverageReport(executableLines: coverageReport.executableLines,
-                                                    targets: targetsToKeep,
-                                                    lineCoverage: coverageReport.lineCoverage,
-                                                    coveredLines: coverageReport.coveredLines)
+        let adjusted = targetsToKeep.reduce(into: (coveredLines: 0, executableLines: 0)) {
+            $0.coveredLines += $1.coveredLines
+            $0.executableLines += $1.executableLines
+        }
+        let filteredCoverageReport = CoverageReport(
+            executableLines: adjusted.executableLines,
+            targets: targetsToKeep,
+            lineCoverage: Double(adjusted.coveredLines) / Double(adjusted.executableLines),
+            coveredLines: adjusted.coveredLines
+        )
+
         return filteredCoverageReport
     }
 }
