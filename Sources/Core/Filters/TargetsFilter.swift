@@ -14,10 +14,17 @@ public extension Xccov.Filters.Targets {
         guard !targetsToExclude.isEmpty else { return coverageReport }
 
         let targetsToKeep = coverageReport.targets.filter { !$0.name.contains(elementsOf: targetsToExclude) }
-        let filteredCoverageReport = CoverageReport(executableLines: coverageReport.executableLines,
-                                                    targets: targetsToKeep,
-                                                    lineCoverage: coverageReport.lineCoverage,
-                                                    coveredLines: coverageReport.coveredLines)
+        let adjusted = targetsToKeep.reduce(into: (coveredLines: 0, executableLines: 0)) {
+            $0.coveredLines += $1.coveredLines
+            $0.executableLines += $1.executableLines
+        }
+        let filteredCoverageReport = CoverageReport(
+            executableLines: adjusted.executableLines,
+            targets: targetsToKeep,
+            lineCoverage: Double(adjusted.coveredLines) / Double(adjusted.executableLines),
+            coveredLines: adjusted.coveredLines
+        )
+
         return filteredCoverageReport
     }
 }
