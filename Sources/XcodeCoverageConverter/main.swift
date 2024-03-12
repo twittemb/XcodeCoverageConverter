@@ -31,7 +31,7 @@ struct Generate: ParsableCommand {
     private var excludePackages: [String]
 
     @Flag(name: .long, help: "Show extra logging for debugging purposes")
-    private var verbose: Bool
+    private var verbose: Bool = false
 
     func run() throws {
         let result = Xccov.Commands.Generate.execute(jsonFile: jsonFile,
